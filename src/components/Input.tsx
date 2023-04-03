@@ -3,6 +3,7 @@
 import React, { useState } from "react"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+import data from './data.json';
 
 const SearchComponent = () => {
   const [searchValue, setSearchValue] = useState("")
@@ -74,7 +75,8 @@ const SearchComponent = () => {
         />
       </div>
       <ul id="search-results">
-        {searchResults.map((item, i) => (
+        {/* {searchResults.map((item, i) => ( */}
+        {data.map((item, i) => (
           <li key={i} className={i % 2 === 0 ? "lieven" : ""}>
             {`${item.fileName.split("_")[1].split(".")[0].replaceAll("-", " ")} ${
               item.matchedLine
