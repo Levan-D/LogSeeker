@@ -3,6 +3,7 @@
 import Input from "./components/Input"
 import ListDisplay from "./components/ListDisplay"
 import BackToTop from "./components/BacktoTop"
+import Pagination from "./components/Pagination"
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <BackToTop />
       <Input />
       <ListDisplay />
+      <Pagination />
     </div>
   )
 }

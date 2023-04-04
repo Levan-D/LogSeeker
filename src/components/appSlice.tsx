@@ -9,7 +9,8 @@ interface initialStateType {
   searchValue: string
   startDate: Date
   endDate: Date
-  currentPage:number,
+  currentPage: number
+  pageLength: number
   logStatus: {
     error: null | string
     loading: boolean
@@ -33,7 +34,7 @@ export const getLogs = createAsyncThunk(
   ) => {
     try {
       const res = await fetch(
-        `https://chatlog.totemarts.dev/search/?` +
+        `${window.location.origin}/search/?` +
           new URLSearchParams({
             dateFrom: startDate.toISOString().split("T")[0],
             dateTo: endDate.toISOString().split("T")[0],
@@ -56,13 +57,14 @@ const initialState: initialStateType = {
   startDate: new Date("2021-02-17"),
   endDate: new Date(),
   currentPage: 0,
+  pageLength: 100,
   logStatus: {
     error: null,
     loading: false,
     success: false,
   },
 
-  searchResults: data,
+  searchResults: [],
 }
 
 const appSlice = createSlice({
@@ -70,6 +72,9 @@ const appSlice = createSlice({
   initialState,
   reducers: {
     resetState: () => initialState,
+    setCurrentPage: (state, action: PayloadAction<initialStateType["currentPage"]>) => {
+      state.currentPage = action.payload
+    },
     setStartDate: (state, action: PayloadAction<initialStateType["startDate"]>) => {
       state.startDate = action.payload
     },
@@ -108,9 +113,10 @@ const appSlice = createSlice({
 export const selectPageLength = createSelector(
   (state: RootState) => state.app,
   app => {
-    return Math.floor(app.searchResults.length / 192)
+    return Math.floor(app.searchResults.length / app.pageLength)
   }
 )
 
-export const { setStartDate, setEndDate, setSearchValue } = appSlice.actions
+export const { setStartDate, setEndDate, setCurrentPage, setSearchValue } =
+  appSlice.actions
 export default appSlice.reducer

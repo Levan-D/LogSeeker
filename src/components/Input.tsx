@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react"
+import React from "react"
 //@ts-ignore
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
@@ -20,12 +20,12 @@ const SearchComponent = () => {
   }
 
   return (
-    <div>
+    <div className="">
       <input
         type="text"
         value={searchValue}
         onChange={e => dispatch(setSearchValue(e.target.value))}
-        onKeyPress={handleKeyPress}
+        onKeyDown={handleKeyPress}
         placeholder="Search any message or username"
         id="searchbox"
       />

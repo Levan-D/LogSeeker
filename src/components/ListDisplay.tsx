@@ -6,7 +6,10 @@ import { useAppSelector } from "../app/hooks"
 import Tooltip from "./Tooltip"
 
 export default function ListDisplay() {
-  const { searchResults } = useAppSelector(store => store.app)
+  const { searchResults, currentPage, pageLength } = useAppSelector(store => store.app)
+
+  const startingPage = pageLength * currentPage
+  const endingpage = pageLength * (currentPage + 1)
 
   const formatString = (date: string, rest: string, i: number) => {
     const regexRest =
@@ -93,12 +96,12 @@ export default function ListDisplay() {
 
   return (
     <ul className=" mx-4 my-8 ">
-      {searchResults.map((item, i) => (
+      {searchResults.slice(startingPage, endingpage).map((item, i) => (
         <li
           key={i}
           className={`${i % 2 === 0 ? " bg-slate-800  " : "bg-slate-900"}  ${
             i === 0 && " rounded-t-xl "
-          }  ${i + 1 === searchResults.length && " rounded-b-xl "}    px-5  py-2.5 `}
+          }  ${i + 1 === pageLength && " rounded-b-xl "}    px-5  py-2.5 `}
         >
           {formatString(item.fileName, item.matchedLine, i)}
         </li>
