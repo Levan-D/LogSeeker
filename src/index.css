@@ -10,8 +10,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -19,74 +18,6 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   box-sizing: border-box;
-}
 
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-li {
-  margin: 10px;
-  padding-left: 10px;
-  /**background: rgb(136, 136, 136);**/
-}
-
-ul {
-  list-style-type: none;
-}
-
-h2 {
-  padding-left: 50px;
-}
-
-.lieven {
-  padding-left: 10px;
-  margin: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background: dimgrey;
-  font-weight: bold;
-  border: 1px solid rgb(0, 0, 0);
-}
-
-.topnav {
-  overflow: hidden;
-  background-color: #2a2a2a;
-  border: 1px solid rgb(0, 0, 0);
-}
-
-.topnav a {
-  float: center;
-  display: block;
-  color: black;
-  text-align: center;
-  padding: 16px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.topnav a.active {
-  background-color: #2196f3;
-  color: white;
-}
-
-.topnav .search-container {
-  float: center;
-  padding-left: 10px;
-}
-
-.topnav input[type="text"] {
-  float: center;
-
-  width: 500px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-size: 17px;
-  padding-left: 10px;
+  background-color: rgb(0, 3, 8);
 }
