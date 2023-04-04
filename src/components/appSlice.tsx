@@ -64,7 +64,7 @@ const initialState: initialStateType = {
     success: false,
   },
 
-  searchResults: data,
+  searchResults: [],
 }
 
 const appSlice = createSlice({
