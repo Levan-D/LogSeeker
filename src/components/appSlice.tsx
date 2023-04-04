@@ -64,7 +64,7 @@ const initialState: initialStateType = {
     success: false,
   },
 
-  searchResults: [],
+  searchResults: data,
 }
 
 const appSlice = createSlice({
@@ -97,13 +97,16 @@ const appSlice = createSlice({
 
         if (contentType && contentType.includes("application/json")) {
           state.searchResults = action.payload
-        }
+        } else console.error("Expected JSON but received:", contentType)
+
+        state.searchValue = ""
       })
       .addCase(getLogs.rejected, (state, action: any) => {
         const contentType = action.payload.headers.get("content-type")
 
         console.error("Expected JSON but received:", contentType)
 
+        state.searchValue = ""
         state.logStatus.loading = false
         state.logStatus.error = "Expected JSON but received:" + " " + " " + contentType
       })

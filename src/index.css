@@ -11,6 +11,8 @@
 
   color-scheme: light dark;
 
+  margin: 0;
+  padding: 0;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -20,4 +22,8 @@
   box-sizing: border-box;
 
   background-color: rgb(0, 3, 8);
+}
+
+.slide-up {
+  transition: transform 0.3s ease-out;
 }
