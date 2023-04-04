@@ -74,7 +74,7 @@ const SearchComponent = () => {
           <input
             type="submit"
             value="Search"
-            className="w-2/3 mx-auto  block font-semibold bg-blue-600 hover:bg-blue-500 active:bg-blue-400  duration-300 cursor-pointer select-none py-2 rounded-md text-center  mt-8"
+            className="w-2/3 mx-auto  block font-semibold bg-rose-600 hover:bg-rose-500 active:bg-rose-400  duration-300 cursor-pointer select-none py-2 rounded-md text-center  mt-8"
           />
         </form>
       </div>

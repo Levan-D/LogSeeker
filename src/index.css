@@ -24,6 +24,27 @@
   background-color: rgb(0, 3, 8);
 }
 
-.slide-up {
-  transition: transform 0.3s ease-out;
+/* scrollbar */
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
 }
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #cbdeff;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: rgb(225 29 72);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(236, 56, 95);
+}
+/* scrollbar */
