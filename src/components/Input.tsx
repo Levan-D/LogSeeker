@@ -30,7 +30,9 @@ const SearchComponent = () => {
   return (
     <div
       className={`${
-        searchResults.length === 0 ? " h-screen flex justify-center items-center" : "mt-8"
+        searchResults.length === 0
+          ? " h-screen flex justify-center items-center"
+          : "mt-8  mx-4 w-[calc(100%-32px)] rounded-lg bg-slate-800"
       } `}
     >
       <div className={` bg-slate-800 w-fit mx-auto rounded-lg  mt-8  px-4  py-6`}>
