@@ -45,7 +45,15 @@ export const getLogs = createAsyncThunk(
           headers: { "Content-Type": "application/json" },
         }
       )
-      return res
+
+      // Check if the response is OK and try to parse the text as JSON
+      if (res.ok) {
+        const data = await res.text()
+        const jsonData = JSON.parse(data)
+        return jsonData
+      } else {
+        throw new Error("Failed to fetch data")
+      }
     } catch (error) {
       return rejectWithValue(error)
     }
@@ -93,22 +101,13 @@ const appSlice = createSlice({
         state.logStatus.error = null
       })
       .addCase(getLogs.fulfilled, (state, action: any) => {
-        const contentType = action.payload.headers.get("content-type")
-
-        if (contentType && contentType.includes("application/json")) {
-          state.searchResults = action.payload
-        } else console.error("Expected JSON but received:", contentType)
-
+        state.searchResults = action.payload // Directly use the parsed data
         state.searchValue = ""
       })
       .addCase(getLogs.rejected, (state, action: any) => {
-        const contentType = action.payload.headers.get("content-type")
-
-        console.error("Expected JSON but received:", contentType)
-
         state.searchValue = ""
         state.logStatus.loading = false
-        state.logStatus.error = "Expected JSON but received:" + " " + " " + contentType
+        state.logStatus.error = "Error fetching data: " + action.payload.message
       })
   },
 })
