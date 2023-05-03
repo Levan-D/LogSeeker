@@ -68,6 +68,8 @@ export const getLogs = createAsyncThunk(
         }
       );
 
+      // code above is the actual api call
+
       // Check if the response is OK and try to parse the text as JSON
       if (res.ok) {
         const data = await res.text();
@@ -149,7 +151,7 @@ const appSlice = createSlice({
 export const selectPageLength = createSelector(
   (state: RootState) => state.app,
   (app) => {
-    return Math.floor(app.searchResults.length / app.pageLength);
+    return Math.ceil(app.searchResults.length / app.pageLength);
   }
 );
 
