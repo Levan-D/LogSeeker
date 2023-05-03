@@ -1,14 +1,14 @@
 /** @format */
 
-import React from "react"
-import { setCurrentPage } from "./appSlice"
-import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { selectPageLength } from "./appSlice"
+import React from "react";
+import { setCurrentPage } from "./appSlice";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { selectPageLength } from "./appSlice";
 
 export default function Pagination() {
-  const dispatch = useAppDispatch()
-  const { currentPage } = useAppSelector(store => store.app)
-  const pages = useAppSelector(selectPageLength)
+  const dispatch = useAppDispatch();
+  const { currentPage } = useAppSelector((store) => store.app);
+  const pages = useAppSelector(selectPageLength);
   return (
     <div className="flex w-fit mx-auto my-8  gap-2 flex-wrap max-w-2xl">
       {[...Array(pages).keys()].map((page, i) => (
@@ -23,5 +23,5 @@ export default function Pagination() {
         </div>
       ))}
     </div>
-  )
+  );
 }

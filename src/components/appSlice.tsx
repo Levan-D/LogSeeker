@@ -135,7 +135,10 @@ const appSlice = createSlice({
       })
       .addCase(getLogs.fulfilled, (state, action: any) => {
         console.log("action.payload:", action.payload);
-        state.searchResults = action.payload; // Directly use the parsed data
+        state.searchResults = action.payload.filter(
+          (item: { fileName: string; matchedLine: string }) =>
+            item.fileName.includes("ChatLog")
+        ); // Directly use the parsed data and filter out anything that isnt chatlog because apperantly noone gives a goose neck about datatructures
         state.searchValue = "";
         state.logStatus.loading = false;
       })
