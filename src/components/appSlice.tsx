@@ -45,6 +45,16 @@ export const getLogs = createAsyncThunk(
         })
     );
     try {
+      // this is to simulate data fetching cuz u didnt faking fix the cors policy
+
+      // return new Promise((resolve) => {
+      //   setTimeout(() => {
+      //     resolve(data);
+      //   }, 2000);
+      // });
+
+      // code below is the actual api call
+
       const res = await fetch(
         `${window.location.origin}/search/?` +
           new URLSearchParams({
@@ -83,7 +93,7 @@ const initialState: initialStateType = {
     loading: false,
     success: false,
   },
-
+  // add data to search results for testing purposes
   searchResults: [],
 };
 
@@ -122,9 +132,10 @@ const appSlice = createSlice({
         state.logStatus.error = null;
       })
       .addCase(getLogs.fulfilled, (state, action: any) => {
-        console.log('action.payload:', action.payload);
+        console.log("action.payload:", action.payload);
         state.searchResults = action.payload; // Directly use the parsed data
         state.searchValue = "";
+        state.logStatus.loading = false;
       })
       .addCase(getLogs.rejected, (state, action: any) => {
         state.searchValue = "";

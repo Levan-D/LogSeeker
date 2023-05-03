@@ -1,25 +1,28 @@
 /** @format */
 
-import Input from "./components/Input"
-import ListDisplay from "./components/ListDisplay"
-import BackToTop from "./components/BacktoTop"
-import Pagination from "./components/Pagination"
-import { useAppDispatch, useAppSelector } from "./app/hooks"
+import Input from "./components/Input";
+import ListDisplay from "./components/ListDisplay";
+import BackToTop from "./components/BacktoTop";
+import Pagination from "./components/Pagination";
+import { useAppSelector } from "./app/hooks";
 
 function App() {
-  const { searchResults } = useAppSelector(store => store.app)
+  const {
+    searchResults,
+    logStatus: { loading },
+  } = useAppSelector((store) => store.app);
   return (
-    <div>
+    <div className="mx-4">
       <BackToTop />
       <Input />
-      {searchResults.length !== 0 && (
+      <ListDisplay />
+      {searchResults.length !== 0 && !loading && (
         <>
-          <ListDisplay />
           <Pagination />
         </>
       )}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

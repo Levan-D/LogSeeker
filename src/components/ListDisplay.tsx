@@ -1,40 +1,42 @@
 /** @format */
 
-import React, { useState } from "react"
-import { useAppSelector } from "../app/hooks"
+import React, { useState } from "react";
+import { useAppSelector } from "../app/hooks";
 
-import Tooltip from "./Tooltip"
+import Tooltip from "./Tooltip";
 
 export default function ListDisplay() {
-  const { searchResults, currentPage, pageLength } = useAppSelector(store => store.app)
+  const { searchResults, currentPage, pageLength, logStatus } = useAppSelector(
+    (store) => store.app
+  );
 
-  const startingPage = pageLength * currentPage
-  const endingpage = pageLength * (currentPage + 1)
+  const startingPage = pageLength * currentPage;
+  const endingpage = pageLength * (currentPage + 1);
 
   const formatString = (date: string, rest: string, i: number) => {
     const regexRest =
-      /^(\d{2}:\d{2}:\d{2}) (\d+\.\d+\.\d+\.\d+:\d+) (TEAM|ALL) (.*): (.*)$/
-    const matchRest = rest.match(regexRest)
+      /^(\d{2}:\d{2}:\d{2}) (\d+\.\d+\.\d+\.\d+:\d+) (TEAM|ALL) (.*): (.*)$/;
+    const matchRest = rest.match(regexRest);
 
-    const regexDate = /ChatLog_(\d{4}-\d{2}-\d{2})\.log/
-    const matchDate = date.match(regexDate)
+    const regexDate = /ChatLog_(\d{4}-\d{2}-\d{2})\.log/;
+    const matchDate = date.match(regexDate);
 
-    const dateStr = matchDate !== null ? matchDate[1] : ""
-    const dateObj = new Date(dateStr)
+    const dateStr = matchDate !== null ? matchDate[1] : "";
+    const dateObj = new Date(dateStr);
     const formatter = new Intl.DateTimeFormat("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
-    })
-    const formattedDateParts = formatter.formatToParts(dateObj)
+    });
+    const formattedDateParts = formatter.formatToParts(dateObj);
     const formattedDateWithComma = formattedDateParts
-      .map(part => {
+      .map((part) => {
         if (part.type === "month") {
-          return part.value + ","
+          return part.value + ",";
         }
-        return part.value
+        return part.value;
       })
-      .join(" ")
+      .join(" ");
 
     if (matchRest) {
       const userDate = {
@@ -43,9 +45,11 @@ export default function ListDisplay() {
         group: matchRest[3],
         name: matchRest[4],
         comment: matchRest[5],
-      }
+      };
       return (
-        <div className="flex justify-around gap-8 items-center text-slate-200">
+        <div
+          className={`flex justify-around gap-8 items-center text-slate-200 `}
+        >
           <div className=" min-w-[120px]  text-center ">
             <div className="leading-5">{formattedDateWithComma}</div>
             <div className="leading-5">{userDate.time}</div>
@@ -54,7 +58,7 @@ export default function ListDisplay() {
             <Tooltip text="Copied" onClick={true}>
               <div
                 onClick={() => {
-                  navigator.clipboard.writeText(userDate.ip)
+                  navigator.clipboard.writeText(userDate.ip);
                 }}
                 className={`${
                   i % 2 === 0
@@ -88,14 +92,30 @@ export default function ListDisplay() {
             <div className="  text-sm">{userDate.comment}</div>
           </div>
         </div>
-      )
+      );
     } else {
-      return formattedDateWithComma + " " + " " + rest
+      return formattedDateWithComma + " " + " " + rest;
     }
+  };
+
+  if (logStatus.loading) {
+    return (
+      <div className="">
+        <div className="lds-heart w-fit mx-auto   ">
+          <div></div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <ul className=" mx-4 my-8 ">
+    <ul
+      className={`${
+        searchResults.length !== 0
+          ? "scale-y-100 opacity-100"
+          : "scale-y-0 opacity-50"
+      } duration-300 my-8 origin-top`}
+    >
       {searchResults.slice(startingPage, endingpage).map((item, i) => (
         <li
           key={i}
@@ -107,5 +127,5 @@ export default function ListDisplay() {
         </li>
       ))}
     </ul>
-  )
+  );
 }

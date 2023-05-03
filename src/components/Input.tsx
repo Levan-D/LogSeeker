@@ -1,47 +1,48 @@
 /** @format */
 
-import React from "react"
+import React from "react";
 //@ts-ignore
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
-import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { setStartDate, setEndDate, setSearchValue } from "./appSlice"
-import { getLogs } from "./appSlice"
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { setStartDate, setEndDate, setSearchValue } from "./appSlice";
+import { getLogs } from "./appSlice";
 
 const SearchComponent = () => {
-  const dispatch = useAppDispatch()
-  const { startDate, endDate, searchValue, searchResults } = useAppSelector(
-    store => store.app
-  )
+  const dispatch = useAppDispatch();
+  const { startDate, endDate, searchValue, searchResults, logStatus } =
+    useAppSelector((store) => store.app);
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === "Enter") {
-      event.preventDefault()
-      dispatch(getLogs({ startDate, endDate, searchValue }))
+      event.preventDefault();
+      dispatch(getLogs({ startDate, endDate, searchValue }));
     }
-  }
+  };
 
   const submit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    dispatch(getLogs({ startDate, endDate, searchValue }))
-  }
+    dispatch(getLogs({ startDate, endDate, searchValue }));
+  };
 
   return (
     <div
       className={`${
         searchResults.length === 0
-          ? " h-screen flex justify-center items-center"
-          : "mt-8  mx-4 w-[calc(100%-32px)] rounded-lg bg-slate-800"
-      } `}
+          ? "   mt-[30vh]  w-fit"
+          : "mt-8 w-full rounded-lg bg-slate-800"
+      }  transition-all duration-500 mx-auto `}
     >
-      <div className={` bg-slate-800 w-fit mx-auto rounded-lg  mt-8  px-4  py-6`}>
+      <div
+        className={` bg-slate-800 w-fit mx-auto rounded-lg mt-8 px-12 py-8 `}
+      >
         <form onSubmit={submit}>
           <label className="font-semibold">Enter message or username</label>
           <input
             type="text"
             value={searchValue}
-            onChange={e => dispatch(setSearchValue(e.target.value))}
+            onChange={(e) => dispatch(setSearchValue(e.target.value))}
             onKeyDown={handleKeyPress}
             required
             placeholder="Search any message or username"
@@ -76,12 +77,17 @@ const SearchComponent = () => {
           <input
             type="submit"
             value="Search"
-            className="w-2/3 mx-auto  block font-semibold bg-rose-600 hover:bg-rose-500 active:bg-rose-400  duration-300 cursor-pointer select-none py-2 rounded-md text-center  mt-8"
+            disabled={logStatus.loading ? true : false}
+            className={` ${
+              logStatus.loading
+                ? "opacity-50 cursor-progress "
+                : "hover:bg-rose-500 active:bg-rose-400  "
+            } w-2/3 mx-auto  block font-semibold bg-rose-600   duration-300 cursor-pointer select-none py-2 rounded-md text-center  mt-8`}
           />
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SearchComponent
+export default SearchComponent;
